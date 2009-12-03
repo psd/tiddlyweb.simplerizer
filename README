@@ -34,7 +34,7 @@ json serializer:
 To use this code install the package and and add 'tiddlywebplugins.simplerizer'
 to install_requires section of setup.py for your serializer package:
 
-    install_requires = ['setuptools', 'pyyaml', 'tiddlyweb.simplerizer', 'tiddlyweb'],
+    install_requires = ['setuptools', 'simplejson', 'tiddlyweb.simplerizer', 'tiddlyweb'],
 
 Created by Paul Downey, <psd@osmosoft.com>.
 http://blog.whatfettle.com
