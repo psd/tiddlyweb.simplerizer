@@ -1,0 +1,42 @@
+A base class for TiddlyWeb to simplify the development of serializers 
+in particular those which exchange bags, recipes and tiddlers as 
+representations in a _generic_ format, such as JSON, XML, YAML, etc.
+
+The simplerizer pacakge uses the dump and load objects to implement
+all of the known core methods for exchanging representations with TiddlyWeb
+resources. This contrasts with the core TiddlyWeb SerializionInterface
+which throws "NotImplemented" exceptions for methods not explicity defined.
+Both approaches may have merit, hence this being offered as a plugin.
+
+The following simplerizer based plugin is a replacement for the core
+json serializer:
+
+    from simplejson import dumps, loads
+    from tiddlyweb.simplerizer import SerializerInterface 
+
+    def init(config):
+        # register the serializer
+        content_type = "text/json"
+        config["extension_types"]["json"] = content_type
+        config["serializers"][content_type] = [__name__, "text/json; charset=UTF-8"]
+
+    class Serialization(SerializationInterface):
+        """Access TiddlyWeb resources using the JSON representation."""
+
+        def dump(self, o):
+            """Dump an object as a FOO string."""
+            return simplejson.dumps(o)
+
+        def load(self, s):
+            """Load an object from a FOO string."""
+            return simplejson.loads(s)
+
+To use this code install the package and and add 'tiddlywebplugins.simplerizer'
+to install_requires section of setup.py for your serializer package:
+
+    install_requires = ['setuptools', 'pyyaml', 'tiddlyweb.simplerizer', 'tiddlyweb'],
+
+Created by Paul Downey, <psd@osmosoft.com>.
+http://blog.whatfettle.com
+
+This package is licensed under the same terms as TiddlyWeb itself.
