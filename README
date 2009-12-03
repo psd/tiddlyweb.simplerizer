@@ -12,7 +12,7 @@ The following simplerizer based plugin is a replacement for the core
 json serializer:
 
     from simplejson import dumps, loads
-    from tiddlyweb.simplerizer import SerializerInterface 
+    from tiddlywebplugins.simplerizer import Simplerization as SerializationInterface
 
     def init(config):
         # register the serializer
@@ -23,13 +23,13 @@ json serializer:
     class Serialization(SerializationInterface):
         """Access TiddlyWeb resources using the JSON representation."""
 
-        def dump(self, o):
-            """Dump an object as a FOO string."""
-            return simplejson.dumps(o)
+        def dump(self, object):
+            """Dump a dictionary object to a JSON string."""
+            return simplejson.dumps(object)
 
-        def load(self, s):
-            """Load an object from a FOO string."""
-            return simplejson.loads(s)
+        def load(self, input_string):
+            """Load a dictionary object from a JSON string."""
+            return simplejson.loads(input_string)
 
 To use this code install the package and and add 'tiddlywebplugins.simplerizer'
 to install_requires section of setup.py for your serializer package:
