@@ -85,19 +85,20 @@ class Simplerization(SerializationInterface):
             tiddler.text = b64decode(tiddler.text)
         return tiddler
 
-    def _get_policy(self, item):
-        """Creates a bag from a representation."""
-        policy = item.policy
+    def _get_policy(self, object):
+        """Generates a policy dictionary for an object."""
+        policy = object.policy
         policy_dict = {}
         for key in Policy.attributes:
             policy_dict[key] = getattr(policy, key)
         return policy_dict
 
-    def _set_policy(self, info, item):
+    def _set_policy(self, info, object):
+        """Applies a policy dictionary to an object."""
         if info.get('policy', {}):
-            item.policy = Policy()
-            for key, value in info['policy'].items():
-                item.policy.__setattr__(key, value)
+            object.policy = Policy()
+            for key, value in info['policy'].object():
+                object.policy.__setattr__(key, value)
 
     def _tiddler_dict(self, tiddler):
         """
